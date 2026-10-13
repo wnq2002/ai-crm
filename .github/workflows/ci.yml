@@ -1,0 +1,81 @@
+# AI CRM V1.0 — CI 流水线（骨架）
+# 契约（backend/frontend 落地时需满足）：
+#   - backend/requirements.txt（运行时） + backend/requirements-dev.txt（ruff/pytest/pytest-cov/httpx 等）
+#   - backend/alembic.ini 与 migrations 位于 backend/，alembic env.py 读取环境变量 DATABASE_URL
+#   - frontend/package.json 提供脚本：typecheck(vue-tsc)、lint(eslint)、build(vite)、test(vitest)
+# Playwright E2E 由 QA 在核心切片落地后接入（见 docs/qa-test-plan.md），本骨架暂不包含。
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  backend:
+    name: Backend — lint / pytest / migration
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: ai_crm
+          POSTGRES_PASSWORD: ai_crm_test
+          POSTGRES_DB: ai_crm_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ai_crm -d ai_crm_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      DATABASE_URL: postgresql+psycopg://ai_crm:ai_crm_test@localhost:5432/ai_crm_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements*.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt -r requirements-dev.txt
+      - name: Lint (ruff)
+        run: ruff check app
+      - name: Tests (pytest, coverage gate >= 70%)
+        run: pytest -q --cov=app --cov-fail-under=70
+      - name: Migration up/down roundtrip on fresh DB
+        run: |
+          alembic upgrade head
+          alembic downgrade base
+          alembic upgrade head
+
+  frontend:
+    name: Frontend — typecheck / lint / build / unit
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
+      - name: Unit tests (Vitest)
+        run: npm run test -- --run

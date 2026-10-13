@@ -1,0 +1,28 @@
+# AI CRM V1.0 后端工具链配置（ADR-015）
+#
+# qa-gate.sh / CI 直接调用标准命令，无需额外参数：
+#   ruff check app
+#   ruff format --check app
+#   pytest --cov=app --cov-fail-under=70
+#
+# 依赖清单以 requirements.txt / requirements-dev.txt 为准（CI 用 pip install -r 安装），
+# 本文件只承载工具配置，不重复声明依赖。
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+# 与 ruff 默认规则一致，显式声明避免门禁漂移
+select = ["E4", "E7", "E9", "F"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
+
+[tool.coverage.run]
+source = ["app"]
+
+[tool.coverage.report]
+show_missing = true

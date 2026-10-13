@@ -1,0 +1,204 @@
+/* AI CRM — 全浅色、清新、轻量化的企业 SaaS 视觉规范。
+   统一走一套 CSS 变量 + Element Plus token，不做每页单独配色。 */
+
+:root {
+  /* ── 设计变量（业务名） ─────────────────────────── */
+  --bg-page: #f4f9ff;
+  --bg-sidebar: #f7fbff;
+  --bg-card: #ffffff;
+  --bg-hover: #f0f7ff;
+  --bg-selected: #e6f4ff;
+
+  --text-primary: #25364a;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+
+  --border-color: #e3edf7;
+  --border-hover: #c8ddf3;
+
+  --primary: #2878d4;
+  --primary-hover: #1d65b5;
+  --primary-soft: #e6f4ff;
+
+  --success: #15803d;
+  --success-bg: #e8faf1;
+  --warning: #b7791f;
+  --warning-bg: #fff7e6;
+  --danger: #dc2626;
+  --danger-bg: #fef2f2;
+
+  /* ── 应用级布局 ─────────────────────────────────── */
+  --app-sidebar-width: 232px;
+  --app-header-height: 60px;
+  --app-sidebar-bg: #f7fbff;
+  --app-sidebar-text: #64748b;
+  --app-page-bg: #f4f9ff;
+
+  /* ── Element Plus token 映射 ────────────────────── */
+  --el-color-primary: #2878d4;
+  --el-color-primary-light-3: #4a93dd;
+  --el-color-primary-light-5: #7cb2e8;
+  --el-color-primary-light-7: #a9cdef;
+  --el-color-primary-light-8: #c8e1f6;
+  --el-color-primary-light-9: #e6f4ff;
+  --el-color-primary-dark-2: #1d65b5;
+
+  --el-color-success: #15803d;
+  --el-color-success-light-3: #2fa655;
+  --el-color-success-light-5: #6cc48a;
+  --el-color-success-light-7: #a5dfb9;
+  --el-color-success-light-8: #cdeedc;
+  --el-color-success-light-9: #e8faf1;
+  --el-color-success-dark-2: #10632f;
+
+  --el-color-warning: #b7791f;
+  --el-color-warning-light-3: #c68f3c;
+  --el-color-warning-light-5: #d9ae6e;
+  --el-color-warning-light-7: #eacfa4;
+  --el-color-warning-light-8: #f4e3c8;
+  --el-color-warning-light-9: #fff7e6;
+  --el-color-warning-dark-2: #8f5e16;
+
+  --el-color-danger: #dc2626;
+  --el-color-danger-light-3: #e14b4b;
+  --el-color-danger-light-5: #e97e7e;
+  --el-color-danger-light-7: #f2acac;
+  --el-color-danger-light-8: #f8cfcf;
+  --el-color-danger-light-9: #fef2f2;
+  --el-color-danger-dark-2: #b91c1c;
+
+  --el-color-info: #64748b;
+  --el-color-info-light-3: #8ca0b5;
+  --el-color-info-light-5: #b6c4d3;
+  --el-color-info-light-7: #d7e0ea;
+  --el-color-info-light-8: #e9eef4;
+  --el-color-info-light-9: #f4f7fa;
+  --el-color-info-dark-2: #4b5a6d;
+
+  --el-bg-color: #ffffff;
+  --el-bg-color-page: #f4f9ff;
+  --el-bg-color-overlay: #ffffff;
+  --el-text-color-primary: #25364a;
+  --el-text-color-regular: #4b5a6d;
+  --el-text-color-secondary: #64748b;
+  --el-text-color-placeholder: #94a3b8;
+  --el-border-color: #e3edf7;
+  --el-border-color-light: #eef5fc;
+  --el-border-color-lighter: #f4f9ff;
+  --el-border-color-extra-light: #f9fcff;
+  --el-fill-color: #f0f7ff;
+  --el-fill-color-light: #f4f9ff;
+  --el-fill-color-lighter: #f9fcff;
+  --el-fill-color-blank: #ffffff;
+
+  --el-border-radius-base: 8px;
+  --el-border-radius-small: 6px;
+  --el-border-radius-round: 12px;
+  --el-font-size-base: 14px;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', Arial, sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-page);
+  line-height: 1.5;
+}
+
+.page-container {
+  padding: 24px;
+}
+
+/* ── 组件观感：白卡、细边框、无重阴影 ── */
+.el-card {
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.el-card__header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.el-button {
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.el-table {
+  --el-table-header-bg-color: #f0f7ff;
+  --el-table-header-text-color: #64748b;
+  --el-table-border-color: #eef5fc;
+  font-size: 14px;
+}
+
+.el-table th.el-table__cell {
+  font-weight: 500;
+}
+
+.el-table .el-table__row:hover > td.el-table__cell {
+  background: var(--bg-hover);
+}
+
+.el-dialog {
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(37, 54, 74, 0.08);
+}
+
+.el-dialog__header {
+  font-weight: 500;
+}
+
+.el-tag {
+  border-radius: 6px;
+  font-weight: 400;
+}
+
+.el-input__wrapper,
+.el-select__wrapper,
+.el-textarea__inner {
+  border-radius: 8px;
+}
+
+.el-form-item__label {
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* ── 统一按钮/控件高度与对齐 ── */
+.el-button {
+  white-space: nowrap;
+}
+.el-button--small {
+  height: 28px;
+}
+.el-button.is-text,
+.el-button.is-link {
+  height: 28px;
+}
+.el-table .el-table__cell {
+  vertical-align: middle;
+}
+.el-input__wrapper,
+.el-select__wrapper,
+.el-textarea__inner {
+  min-height: 32px;
+}

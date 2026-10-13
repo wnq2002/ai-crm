@@ -1,0 +1,33 @@
+# 环境与密钥
+.env
+*.env.local
+*.env.production
+
+# TLS 私钥与证书（仅存服务器本地，绝不提交）
+infra/certs/*.pem
+infra/certs/*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.coverage
+
+# Node
+node_modules/
+dist/
+.vite/
+coverage/
+
+# 构建与本地产物
+*.log
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
